@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import Avatar from 'react-avatar';
 
 function Header() {
     return (
@@ -21,6 +24,9 @@ function Header() {
                         className="flex-1 outline-none p-2"/>
                     <button hidden>Search</button>
                 </form>
+
+                <Avatar name='Nods men' round color='#0055D1' />
+                {/* Avatar */}
             </div>
         </header>
     );
