@@ -51,9 +51,10 @@ function Header() {
             />
             <button hidden>Search</button>
           </form>
-
+          
+            {/* Avatar */}    
           <Avatar name="Nods men" round size="50" color="#0055D1" />
-          {/* Avatar */}
+          
         </div>
       </div>
 
