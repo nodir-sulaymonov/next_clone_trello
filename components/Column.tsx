@@ -59,7 +59,7 @@ function Column({id, todos, index} : Props) {
                                     ))}
                                     {provided.placeholder}
                                     <div className="flex items-end justify-end p-2">
-                                        <button className="text-green-500 hover: text-green-600">
+                                        <button className="text-green-500 hover:text-green-600">
                                             <PlusCircleIcon className="h-10 w-10 " />
                                         </button>
                                     </div>
