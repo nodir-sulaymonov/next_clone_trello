@@ -73,4 +73,4 @@ function Column({id, todos, index} : Props) {
   )
 }
 
-export default Column
+export default Column;
