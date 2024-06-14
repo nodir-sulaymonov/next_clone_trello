@@ -21,9 +21,6 @@ useEffect(()=> {
 
 const handleOnDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
-    console.log(destination)
-    console.log(source)
-    console.log('type', type)
 
     if (!destination) return
 
@@ -36,6 +33,67 @@ const handleOnDragEnd = (result: DropResult) => {
         ...board, 
         columns: rearrangedColumns,
       })
+    }
+
+    const columns = Array.from(board.columns);
+    const startColumnIndex = columns[Number(source.droppableId)]
+    const finishColumnIndex = columns[Number(destination.droppableId)]
+
+    const startCol: Column = {
+      id: startColumnIndex[0],
+      todos: startColumnIndex[1].todos,
+    }
+
+    const finishCol: Column = {
+      id: finishColumnIndex[0],
+      todos: finishColumnIndex[1].todos,
+    }
+    
+    if (!startCol || !finishCol) return;
+
+    if (source.index === destination.index && startCol === finishCol) return;
+
+    const newTodos = startCol.todos;
+    const [todoMoved] = newTodos.splice(source.index, 1);
+
+    if (startCol.id === finishCol.id) {
+      newTodos.splice(destination.index, 0, todoMoved);
+
+      const newCol = {
+        id: startCol.id,
+        todos: newTodos,
+      };
+      const newColumns = new Map(board.columns); 
+      newColumns.set(startCol.id, newCol);
+
+      setBoardState({
+        ...board,
+        columns: newColumns
+      });
+    } else {
+        // draging to another column
+
+      const finishTodos = Array.from(finishCol.todos);
+      finishTodos.splice(destination.index, 0, todoMoved);
+
+      const newColumns = new Map(board.columns); 
+      const newCol = {
+        id: startCol.id,
+        todos: newTodos,
+      };
+
+      newColumns.set(startCol.id, newCol);
+      newColumns.set(finishCol.id, {
+        id: finishCol.id,
+        todos: finishTodos,
+      });
+
+      //update DB
+
+      setBoardState({
+        ...board,
+        columns: newColumns
+      });
     }
 }
   return (
