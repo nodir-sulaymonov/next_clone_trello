@@ -7,10 +7,11 @@ import Column from './Column';
 import StrictModeDroppable from '@/lib/useStrictModeDroppable';
 
 function Board() {
-  const [board, getBoard, setBoardState] = useBoardStore((state) => [
+  const [board, getBoard, setBoardState, updateTodoInDB] = useBoardStore((state) => [
     state.board,
     state.getBoard,
     state.setBoardState,
+    state.updateTodoInDB
   ]);
 
 
@@ -89,6 +90,8 @@ const handleOnDragEnd = (result: DropResult) => {
       });
 
       //update DB
+
+      updateTodoInDB(todoMoved, finishCol.id);
 
       setBoardState({
         ...board,
